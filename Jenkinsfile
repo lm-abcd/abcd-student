@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Juice Shop'){
             steps{
-                sh 'sudo docker run --rm --name juice-shop -d -p 3000:3000 bkimminich/juice-shop:latest'
+                sh 'docker run --rm --name juice-shop -d -p 3000:3000 bkimminich/juice-shop:latest'
             }
         }
     }
