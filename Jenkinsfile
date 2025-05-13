@@ -25,7 +25,7 @@ pipeline {
         }
         stage('ZAP pasive scan'){
             steps{
-                sh '/home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap/run_passive_scan.sh'
+                sh '/usr/bin/bash /home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap/run_passive_scan.sh'
             }
         }
     }
