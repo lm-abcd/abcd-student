@@ -23,5 +23,10 @@ pipeline {
                 sh 'docker run --rm --name juice-shop -d -p 3000:3000 bkimminich/juice-shop:latest'
             }
         }
+        stage('ZAP pasive scan'){
+            steps{
+                sh '/home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap/run_passive_scan.sh'
+            }
+        }
     }
 }
