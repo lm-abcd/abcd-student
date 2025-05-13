@@ -28,5 +28,10 @@ pipeline {
                 sh '/usr/bin/bash /home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap/run_passive_scan.sh'
             }
         }
+        stage('Stop Juice Shop'){
+            steps{
+                sh 'docker stop juice-shop'
+            }
+        }
     }
 }
