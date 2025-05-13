@@ -37,8 +37,8 @@ pipeline {
                 always{
                     sh '''
                         pwd
-                        docker cp zap:/zap/wrk/reports/zap_html_report.html /var/jenkins_home/workspace/Pipeline_abcd/zap_html_report.html'
-                        docker cp zap:/zap/wrk/reports/zap_xml_report.xml /var/jenkins_home/workspace/Pipeline_abcd/zap_xml_report.xml'
+                        docker cp zap:/zap/wrk/reports/zap_html_report.html /var/jenkins_home/workspace/reports/1/'
+                        docker cp zap:/zap/wrk/reports/zap_xml_report.xml /var/jenkins_home/workspace/reports/1/'
                         docker stop juice-shop
                         docker rm zap
                     '''
