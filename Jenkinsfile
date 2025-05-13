@@ -37,9 +37,10 @@ pipeline {
         stage('Stop Juice Shop'){
             steps{
                 sh '''
-                docker cp zap:/zap/wrk/zap_html_report.html /tmp/zap_html_report.html'
-                docker cp zap:/zap/wrk/zap_xml_report.xml /tmp/zap_xml_report.xml'
+                docker cp zap:/zap/wrk/zap_html_report.html /var/jenkins_home/workspace/reports/1/zap_html_report.html'
+                docker cp zap:/zap/wrk/zap_xml_report.xml /var/jenkins_home/workspace/reports/1/zap_xml_report.xml'
                 docker stop juice-shop
+                docker rm zap
                 '''
             }
         }
