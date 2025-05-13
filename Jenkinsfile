@@ -42,6 +42,8 @@ pipeline {
                         docker stop juice-shop
                         docker rm zap
                     '''
+                    echo 'Archiving results...'
+                    archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/1/*', fingerprint: true, allowEmptyArchive: true
                 }
             }
         }
