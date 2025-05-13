@@ -26,14 +26,17 @@ pipeline {
         }
         stage('ZAP pasive scan'){
             steps{
-                sh 'docker run --rm --add-host="host.docker.internal:host-gateway \
-                -v /home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap:/zap/wrk/:rw zaproxy/zap-stable \
+                sh '''docker run --name zap --add-host="host.docker.internal:host-gateway \
+                -v /home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap:/zap/wrk/:rw \
                 -t ghcr.io/zaproxy/zaproxy:stable bash -c \
-                "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml" || true'
+                "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml" || true
+                '''
             }
         }
         stage('Stop Juice Shop'){
             steps{
+                sh 'docker cp zap:/zap/wrk/zap_html_report.html /tmp/zap_html_report.html'
+                sh 'docker cp zap:/zap/wrk/zap_xml_report.xml /tmp/zap_xml_report.xml'
                 sh 'docker stop juice-shop'
             }
         }
