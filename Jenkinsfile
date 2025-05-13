@@ -45,13 +45,5 @@ pipeline {
                 }
             }
         }
-        stage('Copy to PC'){
-            steps{
-                sh'''
-                    docker cp abcd-lab:/var/jenkins_home/workspace/reports/1/zap_html_report.html /home/nblmaslanka/DEVSECOPS/reports/1/
-                    docker cp abcd-lab:/var/jenkins_home/workspace/reports/1/zap_xml_report.xml /home/nblmaslanka/DEVSECOPS/reports/1/
-                '''
-            }
-        } 
     }
 }
