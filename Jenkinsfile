@@ -26,7 +26,10 @@ pipeline {
         }
         stage('ZAP pasive scan'){
             steps{
-                sh '/usr/bin/bash //wsl.localhost/Ubuntu-22.04/home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap/run_passive_scan.sh'
+                sh 'docker run --rm --add-host="host.docker.internal:host-gateway \
+                -v /home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap:/zap/wrk/:rw
+                -t ghcr.io/zaproxy/zaproxy:stable bash -c \
+                "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml" || true'
             }
         }
         stage('Stop Juice Shop'){
