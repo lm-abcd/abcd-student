@@ -26,7 +26,7 @@ pipeline {
         }
         stage('ZAP pasive scan'){
             steps{
-                sh '/usr/bin/bash /home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap/run_passive_scan.sh'
+                sh '/usr/bin/bash //wsl.localhost/Ubuntu-22.04/home/nblmaslanka/DEVSECOPS/abcd-lab-master/abcd-lab-master/resources/DAST/zap/run_passive_scan.sh'
             }
         }
         stage('Stop Juice Shop'){
