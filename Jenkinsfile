@@ -46,7 +46,7 @@ pipeline {
         }
         stage('OSV scanner'){
             steps{
-                osv-scanner scan --lockfile package-lock.json --output /var/jenkins_home/workspace/reports/2/osv-scanner.json
+                osv-scanner scan --lockfile 'package-lock.json' --output '/var/jenkins_home/workspace/reports/2/osv-scanner.json'
             }
         }
         stage('STOP Juice Shop'){
