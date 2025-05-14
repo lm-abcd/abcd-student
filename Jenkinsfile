@@ -47,5 +47,12 @@ pipeline {
                 }
             }
         }
+        stage('OSV scanner'){
+            steps{
+                sh '''
+                    osv-scanner scan --lockfile package-lock.json
+                '''
+            }
+        }
     }
 }
