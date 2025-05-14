@@ -41,8 +41,6 @@ pipeline {
                         docker cp zap:/zap/wrk/reports/zap_xml_report.xml /var/jenkins_home/workspace/reports/1/
                         docker rm zap
                     '''
-                    echo 'Archiving results...'
-                    archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/1/*', fingerprint: true, allowEmptyArchive: true
                 }
             }
         }
@@ -58,6 +56,12 @@ pipeline {
                 sh '''
                     docker stop juice-shop
                 '''
+            }
+        }
+        stage('Archive reports'){
+            steps{
+                echo 'Archiving results...'
+                archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/*', fingerprint: true, allowEmptyArchive: true
             }
         }
     }
