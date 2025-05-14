@@ -39,7 +39,6 @@ pipeline {
                         pwd
                         docker cp zap:/zap/wrk/reports/zap_html_report.html /var/jenkins_home/workspace/reports/1/
                         docker cp zap:/zap/wrk/reports/zap_xml_report.xml /var/jenkins_home/workspace/reports/1/
-                        docker stop juice-shop
                         docker rm zap
                     '''
                     echo 'Archiving results...'
@@ -50,7 +49,14 @@ pipeline {
         stage('OSV scanner'){
             steps{
                 sh '''
-                    osv-scanner scan --lockfile package-lock.json
+                    osv-scanner scan --lockfile package-lock.json --output /var/jenkins_home/workspace/reports/2/osv-scanner.json
+                '''
+            }
+        }
+        stage('STOP Juice Shop'){
+            steps{
+                sh '''
+                    docker stop juice-shop
                 '''
             }
         }
