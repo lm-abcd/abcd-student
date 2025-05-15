@@ -39,6 +39,7 @@ pipeline {
                 always{
                     sh '''
                         pwd
+                        mkdir results
                         docker cp zap:/zap/wrk/reports/zap_html_report.html results/zap_html_report.html
                         docker cp zap:/zap/wrk/reports/zap_xml_report.xml results/zap_xml_report.xml
                         docker rm zap
@@ -49,6 +50,7 @@ pipeline {
         stage('OSV scanner'){
             steps{
                 sh '''
+                    pwd
                     mkdir results
                     osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json
                 '''
@@ -58,6 +60,7 @@ pipeline {
                     echo 'Archiving results...'
                     archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
                     sh '''
+                        pwd
                         docker stop juice-shop
                         docker rm juice-shop
                     '''
