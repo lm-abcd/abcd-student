@@ -21,7 +21,9 @@ pipeline {
         }
         stage('Juice Shop'){
             steps{
-                sh 'docker run --rm --name juice-shop -d -p 3000:3000 bkimminich/juice-shop:latest'
+                sh '''
+                    docker run --rm --name juice-shop -d -p 3000:3000 bkimminich/juice-shop:latest
+                '''
             }
         }
         stage('ZAP pasive scan'){
@@ -46,15 +48,16 @@ pipeline {
         }
         stage('OSV scanner'){
             steps{
-                sh'''
-                    osv-scanner scan --lockfile package-lock.json --output /var/jenkins_home/workspace/reports/2/osv-scanner.json
+                sh '''
+                    mkdir results
+                    osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json
                 '''
             }
             post {
                 always {
                     echo 'Archiving results...'
-                    archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/**/*', fingerprint: true, allowEmptyArchive: true
-                    sh'''
+                    archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
+                    sh '''
                         docker stop juice-shop
                     '''
                 }
