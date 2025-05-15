@@ -57,6 +57,7 @@ pipeline {
                     sh'''
                         docker stop juice-shop
                     '''
+                }
             }
         }
         stage('Archive reports'){
