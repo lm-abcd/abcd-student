@@ -60,11 +60,5 @@ pipeline {
                 }
             }
         }
-        stage('Archive reports'){
-            steps{
-                echo 'Archiving results...'
-                archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/**/*', fingerprint: true, allowEmptyArchive: true
-            }
-        }
     }
 }
