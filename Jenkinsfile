@@ -50,18 +50,19 @@ pipeline {
                     osv-scanner scan --lockfile package-lock.json --output /var/jenkins_home/workspace/reports/2/osv-scanner.json
                 '''
             }
-            post{
-                always{
+            post {
+                always {
+                    echo 'Archiving results...'
+                    archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/**/*', fingerprint: true, allowEmptyArchive: true
                     sh'''
                         docker stop juice-shop
                     '''
-                }
             }
         }
         stage('Archive reports'){
             steps{
                 echo 'Archiving results...'
-                archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/*', fingerprint: true, allowEmptyArchive: true
+                archiveArtifacts artifacts: '/var/jenkins_home/workspace/reports/**/*', fingerprint: true, allowEmptyArchive: true
             }
         }
     }
