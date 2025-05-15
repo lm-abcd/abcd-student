@@ -22,7 +22,7 @@ pipeline {
         stage('Juice Shop'){
             steps{
                 sh '''
-                    docker run --rm --name juice-shop -d -p 3000:3000 bkimminich/juice-shop:latest
+                    docker run --name juice-shop -d -p 3000:3000 bkimminich/juice-shop:latest
                 '''
             }
         }
@@ -58,7 +58,7 @@ pipeline {
                     echo 'Archiving results...'
                     archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
                     sh '''
-                        docker stop juice-shop
+                        docker rm juice-shop
                     '''
                 }
             }
