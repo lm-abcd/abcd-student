@@ -58,6 +58,7 @@ pipeline {
                     echo 'Archiving results...'
                     archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
                     sh '''
+                        docker stop juice-shop
                         docker rm juice-shop
                     '''
                 }
