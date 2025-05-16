@@ -66,8 +66,8 @@ pipeline {
         }
         stage('TruffleHog'){
             steps{
-                git clone --mirror 'https://github.com/lm-abcd/abcd-student.git'
                 sh '''
+                    git clone --mirror "https://github.com/lm-abcd/abcd-student.git"
                     trufflehog git file://. --only-verified --bare --json --no-update > results/TruffleHog_report.json
                 '''
             }
