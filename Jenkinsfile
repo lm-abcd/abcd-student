@@ -56,6 +56,8 @@ pipeline {
             }
             post {
                 always {
+                    echo 'Archiving results...'
+                    archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
                     sh '''
                         pwd
                         docker stop juice-shop
@@ -67,8 +69,10 @@ pipeline {
         stage('TruffleHog'){
             steps{
                 sh '''
+                    pwd
                     git clone --mirror "https://github.com/lm-abcd/abcd-student.git"
                     trufflehog git file://. --only-verified --bare --json --no-update > results/TruffleHog_report.json
+                    pwd
                 '''
             }
             post {
