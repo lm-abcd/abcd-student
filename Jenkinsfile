@@ -51,7 +51,7 @@ pipeline {
             steps{
                 sh '''
                     pwd
-                    osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json on  || true
+                    osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json || true
                 '''
             }
             post {
