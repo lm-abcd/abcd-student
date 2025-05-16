@@ -71,7 +71,7 @@ pipeline {
                 sh '''
                     pwd
                     git clone --mirror "https://github.com/lm-abcd/abcd-student.git"
-                    trufflehog git file://. --only-verified --bare --json --no-update > results/TruffleHog_report.json
+                    trufflehog git file://. --only-verified --bare --format json --output results/report.json
                     pwd
                 '''
             }
