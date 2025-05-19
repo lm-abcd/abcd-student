@@ -56,8 +56,6 @@ pipeline {
             }
             post {
                 always {
-                    echo 'Archiving results...'
-                    archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
                     sh '''
                         pwd
                         docker stop juice-shop
@@ -76,17 +74,11 @@ pipeline {
                     pwd
                 '''
             }
-            post {
-                always {
-                    echo 'Archiving results...'
-                    archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
-                }
-            }
         }
         stage('Semgrep'){
             steps{
                 sh '''
-                    semgrep scan --config auto > ../results/Semgrep.json
+                    semgrep scan --config auto --output results/Semgrep.json --json
                 '''
             }
             post {
