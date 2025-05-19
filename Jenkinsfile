@@ -87,7 +87,7 @@ pipeline {
             steps{
                 sh '''
                     pwd
-                    git clone --mirror "https://github.com/lm-abcd/abcd-student.git"
+                    git clone --mirror "https://github.com/lm-abcd/abcd-student.git" || true
                     cd abcd-student.git
                     semgrep scan --config auto > ../results/Semgrep.json
                     pwd
