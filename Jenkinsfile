@@ -54,15 +54,6 @@ pipeline {
                     osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json || true
                 '''
             }
-            post {
-                always {
-                    sh '''
-                        pwd
-                        docker stop juice-shop
-                        docker rm juice-shop
-                    '''
-                }
-            }
         }
         stage('TruffleHog'){
             steps{
@@ -85,6 +76,11 @@ pipeline {
                 always {
                     echo 'Archiving results...'
                     archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
+                    sh '''
+                        pwd
+                        docker stop juice-shop
+                        docker rm juice-shop
+                    '''
                 }
             }
         }
